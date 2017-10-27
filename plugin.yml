@@ -1,0 +1,4 @@
+name: HorizonItems
+version: ${version}
+author: Poslovitch
+main: fr.poslovitch.horizonitems.HorizonItems

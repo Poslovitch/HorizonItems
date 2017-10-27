@@ -1,0 +1,13 @@
+# Exemple de script d'item, avec le Pip boy :D
+
+item = {
+    material = "DIAMOND_PICKAXE"
+    data = "1"
+    name = "&ePip Boy"
+}
+
+on_action = {
+    right_click = {
+        send_message(player, "salut, je suis ton pip boy!")
+    }
+}
