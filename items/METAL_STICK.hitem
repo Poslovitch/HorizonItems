@@ -1,0 +1,5 @@
+item = {
+    material = "STICK"
+    name = "&7Bâton en métal"
+    lore = ["&fUtilité illimitée !"]
+}
