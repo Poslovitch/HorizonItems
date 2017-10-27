@@ -27,11 +27,10 @@ public class FileLister {
         // If it does exist, then no files from the JAR will be added if they are missing.
         File directory = new File(plugin.getDataFolder(), directoryPath);
         if (directory.exists()) {
-            System.out.println("directory");
             FilenameFilter filter = new FilenameFilter() {
                 @Override
                 public boolean accept(File dir, String name) {
-                    return name.endsWith("." + fileExtension) && name.matches("\\w+");
+                    return name.endsWith("." + fileExtension) && name.replace("." + fileExtension, "").matches("\\w+");
                 }
             };
 
@@ -41,7 +40,6 @@ public class FileLister {
 
             // Finish if there are any files in this folder
             if (!result.isEmpty()) {
-                System.out.println("not empty");
                 return result;
             }
         }
