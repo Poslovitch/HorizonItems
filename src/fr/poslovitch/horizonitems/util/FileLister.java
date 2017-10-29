@@ -53,6 +53,7 @@ public class FileLister {
             jarFile = (File) method.invoke(plugin);
         } catch (Exception e) {
             plugin.getLogger().severe("§cCould not load the JAR file of the plugin. Maybe Bukkit has done some security changes? Please inform Poslovitch about this on Github!");
+            e.printStackTrace();
         }
 
         try {
@@ -80,6 +81,7 @@ public class FileLister {
             jar.close();
         } catch (Exception e) {
             plugin.getLogger().severe("§cCould not load the JAR of the plugin. This problem may have no solution, but please contact Poslovitch on Github!");
+            e.printStackTrace();
         }
 
         return result;

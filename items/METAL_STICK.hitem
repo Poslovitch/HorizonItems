@@ -1,5 +1,30 @@
+# This is a test script created for the plugin HorizonItems
+# You can find more info about it on GitHub : https://github.com/Poslovitch/HorizonItems
+
+meta = {
+	# The ID of the item should NEVER change. This is how the plugin will recognize it.
+	id = METAL_STICK
+
+	# This represents the "adress" of the item in the item bank.
+	# Each point means it is another folder.
+	category = build.metal
+}
+
+# All the item-related settings goes there.
+# This is how your item will look like in game.
+# Thanks to the ID, you can change these settings whenever you want. They will semi-automatically update on the existing items.
 item = {
-    material = "STICK"
-    name = "&7Bâton en métal"
-    lore = ["&fUtilité illimitée !"]
+	# Here goes the type of the item.
+	# The semi-colon is optional, what goes after being the data value (if it exists).
+	# However, the type must start by the Material.
+	# As there are some differences between Minecraft IDs and Material, please check the full list here : https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
+	type = STICK:0
+
+	# This is the display name of the item.
+	name = &7Bâton en métal
+
+	# This is the lore of the item, it is optional.
+	# Below is an example with a two-lined lore.
+	# In case you only want to set one line, you can get rid of the square brackets.
+	lore = ["&fUtilité illimitée", "&fpour un plaisir maximal!"]
 }
