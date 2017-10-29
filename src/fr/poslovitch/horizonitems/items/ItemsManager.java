@@ -7,6 +7,7 @@ import org.bukkit.Material;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class ItemsManager {
@@ -42,7 +43,12 @@ public class ItemsManager {
 
             String name = ChatColor.translateAlternateColorCodes('&', itemData[1][1]);
 
-            all.add(new HorizonItem(id, category, material, data, name, new ArrayList<>()));
+            List<String> lore = new ArrayList<>();
+            for (String line : itemData[1][2].split("\n")) {
+                lore.add(ChatColor.translateAlternateColorCodes('&', line));
+            }
+
+            all.add(new HorizonItem(id, category, material, data, name, lore));
         }
     }
 }

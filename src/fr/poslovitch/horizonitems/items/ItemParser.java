@@ -115,7 +115,31 @@ public class ItemParser {
                 }
                 // Otherwise check if lore is not set and the line is starting with lore
                 else if (result[2] == null && split[0].equalsIgnoreCase("lore")) {
-                    result[2] = split[1];
+                    // Checks if it is a multi-line lore
+                    if (split[1].startsWith("[")) {
+                        StringBuilder lore = new StringBuilder();
+
+                        for (String part : split[1].split("( *),( *)")) {
+                            part = part.replace("\"", "");
+
+                            if (part.startsWith("[")) part = part.replace("[", "");
+
+                            if (part.endsWith("]")) {
+                                part = part.replace("]", "");
+                                lore.append(part);
+                            } else {
+                                lore.append(part);
+                                lore.append("\n");
+                            }
+                        }
+
+                        result[2] = lore.toString();
+                    }
+
+                    // Otherwise considers it as a simple line
+                    else {
+                        result[2] = split[1].replace("\"", "");
+                    }
                 }
             }
         }
