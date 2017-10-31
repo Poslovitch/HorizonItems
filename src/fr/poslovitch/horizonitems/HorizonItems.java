@@ -1,7 +1,10 @@
 package fr.poslovitch.horizonitems;
 
+import fr.poslovitch.horizonitems.commands.HorizonItemsCommand;
 import fr.poslovitch.horizonitems.items.HorizonItem;
 import fr.poslovitch.horizonitems.items.ItemsManager;
+import fr.poslovitch.horizonitems.listeners.MenuListener;
+import fr.poslovitch.horizonitems.menus.ItemBank;
 import fr.poslovitch.horizonitems.util.FileLister;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -13,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class HorizonItems extends JavaPlugin implements Listener {
+public class HorizonItems extends JavaPlugin{
 
     private static HorizonItems instance;
     private FileLister fileLister;
@@ -23,11 +26,18 @@ public class HorizonItems extends JavaPlugin implements Listener {
         instance = this;
         fileLister = new FileLister(this);
 
-        getLogger().info("§eLoading Items & Blocks.");
+        getLogger().info("§eLoading Items & Blocks...");
         ItemsManager.loadItems();
-        getLogger().info("§aLoaded a total of §b" + ItemsManager.all.size() + " §aitems and blocks.");
+        getLogger().info("§aLoaded a total of §b" + ItemsManager.items.size() + " §aitems and blocks.");
+        getLogger().info("§eConfigurating Categories...");
+        ItemsManager.setupCategories();
+        getLogger().info("§aSuccessfully configurated §b" + ItemsManager.categories.keySet().size() + " §acategories.");
+        getLogger().info("§eGenerating Menus...");
+        ItemBank.generate();
+        getLogger().info("§aSuccessfully generated menus.");
 
-        this.getServer().getPluginManager().registerEvents(this, this);
+        new MenuListener(this);
+        new HorizonItemsCommand(this);
     }
 
     @Override
@@ -41,12 +51,5 @@ public class HorizonItems extends JavaPlugin implements Listener {
 
     public FileLister getFileLister() {
         return fileLister;
-    }
-
-    @EventHandler
-    public void onJoin(PlayerJoinEvent e) {
-        for (HorizonItem item : ItemsManager.all) {
-            e.getPlayer().getInventory().addItem(item.getItem());
-        }
     }
 }

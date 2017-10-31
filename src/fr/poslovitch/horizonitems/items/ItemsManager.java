@@ -6,13 +6,12 @@ import org.bukkit.ChatColor;
 import org.bukkit.Material;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class ItemsManager {
 
-    public static List<HorizonItem> all = new ArrayList<>();
+    public static List<HorizonItem> items = new ArrayList<>();
+    public static Map<String, List<HorizonItem>> categories = new HashMap<>();
 
     public static void loadItems() {
         for(String item : HorizonItems.getInstance().getFileLister().list("items", "hitem")) {
@@ -26,8 +25,6 @@ public class ItemsManager {
                     itemFile = new File(HorizonItems.getInstance().getDataFolder() + "/items", item + ".hitem");
                 }
             }
-
-            System.out.println(item);
 
             // Now we can parse its data!
             String[][] itemData = ItemParser.parse(itemFile);
@@ -48,7 +45,23 @@ public class ItemsManager {
                 lore.add(ChatColor.translateAlternateColorCodes('&', line));
             }
 
-            all.add(new HorizonItem(id, category, material, data, name, lore));
+            items.add(new HorizonItem(id, category, material, data, name, lore));
+        }
+    }
+
+    public static void setupCategories() {
+        for (HorizonItem item : items) {
+            String category = item.getCategory();
+
+            List<HorizonItem> cItems;
+            if ((cItems = categories.get(category)) != null) {
+                cItems.add(item);
+            } else {
+                cItems = new ArrayList<>();
+                cItems.add(item);
+            }
+
+            categories.put(category, cItems);
         }
     }
 }
