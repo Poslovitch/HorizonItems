@@ -2,3 +2,17 @@ name: HorizonItems
 version: ${version}
 author: Poslovitch
 main: fr.poslovitch.horizonitems.HorizonItems
+
+commands:
+  horizonitems:
+    description: LA commande de HorizonItems
+    aliases: [horizonitem, hitems, hitem, bank]
+    usage: /hitem
+
+permissions:
+  horizonitems.bank:
+    description: Allows you to open the item bank
+    default: op
+  horizonitems.reload:
+    description: Allows you to reload the item bank
+    default: op

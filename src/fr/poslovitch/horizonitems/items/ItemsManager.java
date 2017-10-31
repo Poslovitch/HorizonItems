@@ -13,6 +13,11 @@ public class ItemsManager {
     public static List<HorizonItem> items = new ArrayList<>();
     public static Map<String, List<HorizonItem>> categories = new HashMap<>();
 
+    public static void clear() {
+        items.clear();
+        categories.clear();
+    }
+
     public static void loadItems() {
         for(String item : HorizonItems.getInstance().getFileLister().list("items", "hitem")) {
             File itemFile = new File(HorizonItems.getInstance().getDataFolder() + "/items", item + ".hitem");

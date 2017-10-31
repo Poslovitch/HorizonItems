@@ -13,6 +13,11 @@ public class ItemBank {
     private static Menu main;
     private static Map<String, Menu> menus = new HashMap<>();
 
+    public static void clear() {
+        main = null;
+        menus.clear();
+    }
+
     public static void generate() {
         // Generate main menu
         main = new Menu("&6HorizonItems &8- &7by Poslovitch");

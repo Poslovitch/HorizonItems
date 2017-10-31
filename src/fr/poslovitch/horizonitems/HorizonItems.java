@@ -26,6 +26,28 @@ public class HorizonItems extends JavaPlugin{
         instance = this;
         fileLister = new FileLister(this);
 
+        setup();
+
+        new MenuListener(this);
+        new HorizonItemsCommand(this);
+    }
+
+    @Override
+    public void onDisable() {
+        instance = null;
+
+        stop();
+    }
+
+    public static HorizonItems getInstance() {
+        return instance;
+    }
+
+    public FileLister getFileLister() {
+        return fileLister;
+    }
+
+    public void setup() {
         getLogger().info("§eLoading Items & Blocks...");
         ItemsManager.loadItems();
         getLogger().info("§aLoaded a total of §b" + ItemsManager.items.size() + " §aitems and blocks.");
@@ -35,21 +57,19 @@ public class HorizonItems extends JavaPlugin{
         getLogger().info("§eGenerating Menus...");
         ItemBank.generate();
         getLogger().info("§aSuccessfully generated menus.");
-
-        new MenuListener(this);
-        new HorizonItemsCommand(this);
     }
 
-    @Override
-    public void onDisable() {
-        instance = null;
+    public void stop() {
+        getLogger().info("§eClearing Items...");
+        ItemsManager.clear();
+        ItemBank.clear();
+        getLogger().info("§aSuccessfully cleared items.");
     }
 
-    public static HorizonItems getInstance() {
-        return instance;
-    }
-
-    public FileLister getFileLister() {
-        return fileLister;
+    public void reload() {
+        getLogger().info("§6Reloading plugin...");
+        stop();
+        setup();
+        getLogger().info("§aSuccessfully reloaded plugin.");
     }
 }
